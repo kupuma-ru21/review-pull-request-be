@@ -10,16 +10,23 @@ import (
 	"review-pull-request-be/graph/model"
 )
 
-// CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+// CreatePerspective is the resolver for the createPerspective field.
+func (r *mutationResolver) CreatePerspective(ctx context.Context, input model.NewPerspective) (*model.Perspective, error) {
+	panic(fmt.Errorf("not implemented: CreatePerspective - createPerspective"))
 }
 
-// Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	return []*model.Todo{
-		{ID: "3", Text: "first todo", Done: false},
-		{ID: "4", Text: "second todo", Done: true},
+// Perspectives is the resolver for the perspectives field.
+func (r *queryResolver) Perspectives(ctx context.Context) ([]*model.Perspective, error) {
+	return []*model.Perspective{
+		{ID: "1", Text: "perspective1"},
+		{ID: "2", Text: "perspective2"},
+		{ID: "3", Text: "perspective3"},
+		{ID: "4", Text: "perspective4"},
+		{ID: "5", Text: "perspective5"},
+		{ID: "6", Text: "perspective6"},
+		{ID: "7", Text: "perspective7"},
+		{ID: "8", Text: "perspective8"},
+		{ID: "9", Text: "perspective9"},
 	}, nil
 }
 
@@ -31,3 +38,13 @@ func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+
+// !!! WARNING !!!
+// The code below was going to be deleted when updating resolvers. It has been copied here so you have
+// one last chance to move it out of harms way if you want. There are two reasons this happens:
+//   - When renaming or deleting a resolver the old code will be put in here. You can safely delete
+//     it when you're done.
+//   - You have helper methods in this file. Move them out to keep these resolver files clean.
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewPerspective) (*model.Perspective, error) {
+	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+}
