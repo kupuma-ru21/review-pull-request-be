@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"review-pull-request-be/graph"
+	database "review-pull-request-be/internal/pkg/db/mysql"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
@@ -22,6 +23,10 @@ func main() {
 	mux := http.NewServeMux()
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 	handler := cors.Default().Handler(mux)
+
+	database.InitDB()
+	defer database.CloseDB()
+	database.Migrate()
 	mux.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	mux.Handle("/query", srv)
 
