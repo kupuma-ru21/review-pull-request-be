@@ -17,17 +17,8 @@ func (r *mutationResolver) CreatePerspective(ctx context.Context, input model.Ne
 
 // Perspectives is the resolver for the perspectives field.
 func (r *queryResolver) Perspectives(ctx context.Context) ([]*model.Perspective, error) {
-	return []*model.Perspective{
-		{ID: "1", Text: "perspective1"},
-		{ID: "2", Text: "perspective2"},
-		{ID: "3", Text: "perspective3"},
-		{ID: "4", Text: "perspective4"},
-		{ID: "5", Text: "perspective5"},
-		{ID: "6", Text: "perspective6"},
-		{ID: "7", Text: "perspective7"},
-		{ID: "8", Text: "perspective8"},
-		{ID: "9", Text: "perspective9"},
-	}, nil
+	return r.Srv.QueryPerspectives(ctx)
+
 }
 
 // Mutation returns MutationResolver implementation.
