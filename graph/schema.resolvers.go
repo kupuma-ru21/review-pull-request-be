@@ -12,7 +12,7 @@ import (
 
 // CreatePerspective is the resolver for the createPerspective field.
 func (r *mutationResolver) CreatePerspective(ctx context.Context, input model.NewPerspective) (*model.Perspective, error) {
-	panic(fmt.Errorf("not implemented: CreatePerspective - createPerspective"))
+	return r.Srv.CreatePerspective(ctx, input)
 }
 
 // Perspectives is the resolver for the perspectives field.

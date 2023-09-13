@@ -10,9 +10,7 @@ import (
 	_ "github.com/golang-migrate/migrate/source/file"
 )
 
-var Db *sql.DB
-
-func InitDB() {
+func InitDB() *sql.DB {
 	db, err := sql.Open("mysql", "root:dbpass@tcp(localhost)/review_pull_request")
 	if err != nil {
 		log.Panic(err)
@@ -21,18 +19,18 @@ func InitDB() {
 	if err = db.Ping(); err != nil {
 		log.Panic(err)
 	}
-	Db = db
+	return db
 }
 
-func CloseDB() error {
-	return Db.Close()
+func CloseDB(db *sql.DB) error {
+	return db.Close()
 }
 
-func Migrate() {
-	if err := Db.Ping(); err != nil {
+func Migrate(db *sql.DB) {
+	if err := db.Ping(); err != nil {
 		log.Fatal(err)
 	}
-	driver, _ := mysql.WithInstance(Db, &mysql.Config{})
+	driver, _ := mysql.WithInstance(db, &mysql.Config{})
 	m, _ := migrate.NewWithDatabaseInstance(
 		"file://internal/pkg/db/migrations/mysql",
 		"mysql",
